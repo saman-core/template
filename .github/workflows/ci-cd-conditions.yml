@@ -58,7 +58,7 @@ jobs:
           context: ./
           file: ./src/main/docker/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.ACTOR }}/${{ env.IMAGE_APP_NAME }}:${{ env.DEPLOY_HASH }}
+          tags: ${{ env.REGISTRY }}/${{ env.ACTOR }}/${{ env.IMAGE_APP_NAME }}:${{ github.sha }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -72,7 +72,6 @@ jobs:
 
       - name: Deploy app to EKS
         run: |
-          echo "$DEPLOY_HASH"
-          sed -i -e 's/CONTAINER_IMAGE/${{ env.REGISTRY }}\/${{ env.ACTOR }}\/${{ env.IMAGE_APP_NAME }}:${{ env.DEPLOY_HASH }}/g' -e 's/APP_VERSION/${{ github.run_number }}/g' -e 's/APP_NAME/${{ env.APP_NAME }}/g' -e 's/DEPLOY_HASH/${{ env.DEPLOY_HASH }}/g' -e 's/N_REPLICA/${{ env.N_REPLICA }}/g' ./deployment.yml
+          sed -i -e 's/CONTAINER_IMAGE/${{ env.REGISTRY }}\/${{ env.ACTOR }}\/${{ env.IMAGE_APP_NAME }}:${{ github.sha }}/g' -e 's/APP_VERSION/${{ github.run_number }}/g' -e 's/APP_NAME/${{ env.APP_NAME }}/g' -e 's/DEPLOY_HASH/${{ github.sha }}/g' -e 's/N_REPLICA/${{ env.N_REPLICA }}/g' ./deployment.yml
           kubectl delete -f ./deployment.yml -n api || true
           kubectl apply -f ./deployment.yml -n api
