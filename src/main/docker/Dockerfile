@@ -1,13 +1,9 @@
 
 ###
-FROM registry.access.redhat.com/ubi9-minimal:9.3 AS ubi
-# -- Stage scratch
-FROM registry.access.redhat.com/ubi9-micro:9.3 AS scratch
-# -- Final Stage
-FROM scratch
-COPY --from=ubi /usr/lib64/libgcc_s.so.1 /usr/lib64/libgcc_s.so.1
-COPY --from=ubi /usr/lib64/libstdc++.so.6 /usr/lib64/libstdc++.so.6
-COPY --from=ubi /usr/lib64/libz.so.1 /usr/lib64/libz.so.1
+FROM registry.access.redhat.com/ubi9-minimal:9.3
+
+RUN microdnf update -y
+RUN microdnf install -y nc
 
 WORKDIR /work/
 RUN chown 1001 /work \
