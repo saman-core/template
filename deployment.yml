@@ -1,3 +1,27 @@
+##################################################################################################
+# Details service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: APP_NAME
+  labels:
+    app: APP_NAME
+    service: APP_NAME
+spec:
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: APP_NAME
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: APP_NAME
+  labels:
+    account: APP_NAME
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,6 +43,7 @@ spec:
         app: APP_NAME
         version: v-APP_VERSION
     spec:
+      serviceAccountName: APP_NAME
       imagePullSecrets:
         - name: regcred
       containers:
@@ -27,3 +52,4 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+---
