@@ -5,9 +5,12 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 
 import io.smallrye.mutiny.Uni;
+import jakarta.ws.rs.core.MediaType;
 import org.jboss.logging.Logger;
 
 @Path("/templates")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class TemplateApi {
     private static final Logger log = Logger.getLogger(TemplateApi.class);
 
