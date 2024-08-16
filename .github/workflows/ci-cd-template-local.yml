@@ -26,12 +26,6 @@ jobs:
           native-image-job-reports: 'true'
           version: '22.3.3.1-Final'
 
-      - name: Set env
-        env:
-          BASE64: ${{ secrets.ENV_FILE_LOCAL }}
-        run: |
-          base64 -d -i <<<$(echo $BASE64) > .env
-
       - name: Build native app
         run: |
           ./mvnw package -Dnative -DskipTests
