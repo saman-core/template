@@ -27,7 +27,7 @@ spec:
               protocol: TCP
           envFrom:
             - configMapRef:
-                name: APP_NAME-secret
+                name: APP_NAME-deploy-secret
           volumeMounts:
             - mountPath: /work/certs
               name: certs
