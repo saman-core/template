@@ -18,25 +18,25 @@ public class TemplateProductsApi {
 
     @POST
     @RolesAllowed({"admin"})
-    @Path("/{product}/{template}")
-    public Uni<Void> create(@PathParam("product") String product, @PathParam("template") String template, Object templateForm) {
+    @Path("/{module}/{product}/{template}")
+    public Uni<Void> create(@PathParam("module") String module, @PathParam("product") String product, @PathParam("template") String template, Object templateForm) {
         log.debugf("TemplateProductsApi.create %s/%s", product, template);
-        return service.setValue(product, template, templateForm);
+        return service.setValue(module, product, template, templateForm);
     }
 
     @GET
     @RolesAllowed({"admin"})
-    @Path("/{product}/{template}")
-    public Uni<Object> get(@PathParam("product") String product, @PathParam("template") String template) {
+    @Path("/{module}/{product}/{template}")
+    public Uni<Object> get(@PathParam("module") String module, @PathParam("product") String product, @PathParam("template") String template) {
         log.debugf("TemplateProductsApi.get %s/%s", product, template);
-        return service.getValue(product, template);
+        return service.getValue(module, product, template);
     }
 
     @DELETE
     @RolesAllowed({"admin"})
-    @Path("/{product}/{template}")
-    public Uni<Void> delete(@PathParam("product") String product, @PathParam("template") String template) {
+    @Path("/{module}/{product}/{template}")
+    public Uni<Void> delete(@PathParam("module") String module, @PathParam("product") String product, @PathParam("template") String template) {
         log.debugf("TemplateProductsApi.delete %s/%s", product, template);
-        return service.delValue(product, template);
+        return service.delValue(module, product, template);
     }
 }

@@ -20,21 +20,21 @@ public class TemplateService {
         keyCommands = reactive.key();
     }
 
-    public Uni<Object> getValue(String product, String template) {
+    public Uni<Object> getValue(String module, String product, String template) {
         log.debugf("TemplateService.getValue product: %s, template: %s", product, template);
-        var key = PREFIX_KEY.concat(product).concat(DASH).concat(template);
+        var key = PREFIX_KEY.concat(module).concat(DASH).concat(product).concat(DASH).concat(template);
         return countCommands.get(key);
     }
 
-    public Uni<Void> setValue(String product, String template, Object value) {
+    public Uni<Void> setValue(String module, String product, String template, Object value) {
         log.debugf("TemplateService.setValue product: %s, template: %s", product, template);
-        var key = PREFIX_KEY.concat(product).concat(DASH).concat(template);
+        var key = PREFIX_KEY.concat(module).concat(DASH).concat(product).concat(DASH).concat(template);
         return countCommands.set(key, value);
     }
 
-    public Uni<Void> delValue(String product, String template) {
+    public Uni<Void> delValue(String module, String product, String template) {
         log.debugf("TemplateService.delValue product: %s, template: %s", product, template);
-        var key = PREFIX_KEY.concat(product).concat(DASH).concat(template);
+        var key = PREFIX_KEY.concat(module).concat(DASH).concat(product).concat(DASH).concat(template);
         return keyCommands.del(key).replaceWithVoid();
     }
 }
